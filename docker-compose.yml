@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  transmission:
+    image: docker.io/jess/transmission:latest
+    container_name: transmission
+    ports:
+      - "9091:9091"
+    restart: always
+    volumes:
+      - ~/Transmission:/transmission/download
+
+  trm:
+    image: ghcr.io/kth8/trm:latest
+    container_name: trm
+    restart: always
+    depends_on:
+      - transmission
+    network_mode: "service:transmission"
